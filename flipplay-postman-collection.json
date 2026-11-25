@@ -1,0 +1,186 @@
+{
+  "info": {
+    "name": "FlipPlay REST API - Modul 4",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://127.0.0.1:8000/api"
+    }
+  ],
+  "item": [
+    {
+      "name": "Media CRUD",
+      "item": [
+        {
+          "name": "GET Daftar Semua Media",
+          "request": {
+            "method": "GET",
+            "header": [{"key": "Accept", "value": "application/json"}],
+            "url": "{{base_url}}/media"
+          }
+        },
+        {
+          "name": "GET Cari Media by Title (?search=)",
+          "request": {
+            "method": "GET",
+            "header": [{"key": "Accept", "value": "application/json"}],
+            "url": "{{base_url}}/media?search=Jujutsu"
+          }
+        },
+        {
+          "name": "POST Tambah Media Baru (Happy Path)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {"key": "Accept", "value": "application/json"},
+              {"key": "Content-Type", "value": "application/json"}
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Attack on Titan\",\n  \"type\": \"anime\",\n  \"release_year\": 2013,\n  \"episode_count\": 87,\n  \"genre\": \"Action, Dark Fantasy\"\n}"
+            },
+            "url": "{{base_url}}/media"
+          }
+        },
+        {
+          "name": "POST Tambah Media Gagal - Judul Kosong (422)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {"key": "Accept", "value": "application/json"},
+              {"key": "Content-Type", "value": "application/json"}
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"\",\n  \"type\": \"anime\",\n  \"release_year\": 2024\n}"
+            },
+            "url": "{{base_url}}/media"
+          }
+        },
+        {
+          "name": "POST Tambah Media Gagal - Judul Duplikat (422)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {"key": "Accept", "value": "application/json"},
+              {"key": "Content-Type", "value": "application/json"}
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Jujutsu Kaisen\",\n  \"type\": \"anime\",\n  \"release_year\": 2020\n}"
+            },
+            "url": "{{base_url}}/media"
+          }
+        },
+        {
+          "name": "GET Detail Media + Viewers",
+          "request": {
+            "method": "GET",
+            "header": [{"key": "Accept", "value": "application/json"}],
+            "url": "{{base_url}}/media/1"
+          }
+        },
+        {
+          "name": "PATCH Update Media",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {"key": "Accept", "value": "application/json"},
+              {"key": "Content-Type", "value": "application/json"}
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"genre\": \"Action, Supernatural, Dark Fantasy\"\n}"
+            },
+            "url": "{{base_url}}/media/1"
+          }
+        },
+        {
+          "name": "DELETE Media",
+          "request": {
+            "method": "DELETE",
+            "header": [{"key": "Accept", "value": "application/json"}],
+            "url": "{{base_url}}/media/4"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Viewers & Watchlist (Custom Actions)",
+      "item": [
+        {
+          "name": "GET Daftar Pengguna",
+          "request": {
+            "method": "GET",
+            "header": [{"key": "Accept", "value": "application/json"}],
+            "url": "{{base_url}}/viewers"
+          }
+        },
+        {
+          "name": "POST Tambah Pengguna Baru",
+          "request": {
+            "method": "POST",
+            "header": [
+              {"key": "Accept", "value": "application/json"},
+              {"key": "Content-Type", "value": "application/json"}
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Rafi\",\n  \"email\": \"rafi@flipplay.test\"\n}"
+            },
+            "url": "{{base_url}}/viewers"
+          }
+        },
+        {
+          "name": "GET Koleksi Media Pengguna (Watchlist)",
+          "request": {
+            "method": "GET",
+            "header": [{"key": "Accept", "value": "application/json"}],
+            "url": "{{base_url}}/viewers/1/watchlist"
+          }
+        },
+        {
+          "name": "POST Tambah Media ke Koleksi Pengguna (Attach)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {"key": "Accept", "value": "application/json"},
+              {"key": "Content-Type", "value": "application/json"}
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"media_id\": 3\n}"
+            },
+            "url": "{{base_url}}/viewers/1/watchlist"
+          }
+        },
+        {
+          "name": "POST Tambah Media Duplikat ke Koleksi (422)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {"key": "Accept", "value": "application/json"},
+              {"key": "Content-Type", "value": "application/json"}
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"media_id\": 1\n}"
+            },
+            "url": "{{base_url}}/viewers/1/watchlist"
+          }
+        },
+        {
+          "name": "DELETE Hapus Media dari Koleksi Pengguna (Detach)",
+          "request": {
+            "method": "DELETE",
+            "header": [{"key": "Accept", "value": "application/json"}],
+            "url": "{{base_url}}/viewers/1/watchlist/1"
+          }
+        }
+      ]
+    }
+  ]
+}
+
