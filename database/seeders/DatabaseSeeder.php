@@ -41,12 +41,12 @@ class DatabaseSeeder extends Seeder
         );
 
         $vicky = Viewer::firstOrCreate(
-            ['email' => 'vicky@flipplay.test'],
+            ['email' => 'vicky@flipplay.com'],
             ['name' => 'Vicky']
         );
 
         Viewer::firstOrCreate(
-            ['email' => 'dina@flipplay.test'],
+            ['email' => 'dina@flipplay.com'],
             ['name' => 'Dina']
         );
 
